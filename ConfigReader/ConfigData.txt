@@ -1,0 +1,5 @@
+hash: 30dd1c279391b85f3ce127c72868ceb2
+hashType: MD5
+salt: none
+dictionaryPath: C:\Users\wjtk4444\Desktop\abcde\10m\segment10m_realhuman_phill_af
+numberOfThreads: 8

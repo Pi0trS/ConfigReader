@@ -1,0 +1,18 @@
+rzeczy do zrobienia:
+
+klasa / struktura przechowujaca config
+klasa czytajaca i parsujaca plik/konsole/cokolwiek do formatu powyzszej klasy/struktury
+//opcjonalnie oba moga byc jako jedna klasa
+
+pokaz jak skonczysz
+
+klasa owijajaca lamacz hasel - czytanie slownika, lamanie hashy (z uzyciem zewnetrzej metody/klasy/biblioteki)
+konstruktor przyjmuje klase/strukture trzymajaca config/wskaznik na funkcje lub klase do lamania hashu
+metody: start(), pauza(), stop()
+wyswietlanie aktualnego postepu - moze byc poprzez zawolanie odpowiedniej metody, np string pobierzAktualnyPostep();
+
+pokaz jak skonczysz
+w sumie
+nie wiem jak to bardziej rozbic
+have fun
+oczekuje ze jutro skonczysz dlubanie w configach, masz prawie 100% potrzebngo kodu
