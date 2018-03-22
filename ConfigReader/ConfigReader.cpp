@@ -38,15 +38,25 @@ ConfigReader::ConfigReader(std::string path)
 		if (left.length() > 0 && right.length() > 0 && config.find(left) != config.end() )
 			config[left] = right;
 		left = right = "";
-	}
-	
+	}	
 	hash =config["hash"];
 	hashType = config["hashType"];
 	salt =config["salt"];
 	dictionaryPath =config["dictionaryPath"];
 	numberOfThreads = std::stoi(config["numberOfThreads"]);
-
 }
+
+void ConfigReader::setHash(std::string hash_) { hash = hash_; }
+std::string ConfigReader::getHash() { return hash; }
+void ConfigReader::setHashType(std::string hashType_) { hashType = hashType_; }
+std::string ConfigReader::getHashType() { return hashType; }
+void ConfigReader::setSalt(std::string salt_) { salt = salt_; }
+std::string ConfigReader::getSalt() { return salt; }
+void ConfigReader::setDictionaryPath(std::string path) { dictionaryPath = path; }
+std::string ConfigReader::getDictionaryPath() { return dictionaryPath; }
+void ConfigReader::setNumberOfThrede(int number) { numberOfThreads = number; }
+int ConfigReader::getNumberOfThrede() { return numberOfThreads; }
+
 std::string ConfigReader::trim(std::string s)
 {
 	int whiteSpaceAtEnd = 0;
@@ -75,15 +85,16 @@ void ConfigReader::checkData()
 	else
 	{
 		std::string left, right, tmp, input;
-		for (std::map<std::string, std::string>::iterator iter = config.begin(); iter != config.end(); iter++)
+		for (std::map<std::string, std::string>::iterator iter = config.begin(); iter != config.end();)
 		{
 			left = iter->first;
 			right = iter->second;
-			std::cout << left << ": " << right << "correctly loaded type y/n "<< std::endl;
+			std::cout << left << ": " << right << "correctly loaded type y/n " << std::endl;
 			std::cin >> tmp;
-			if (tmp == "y" || tmp == "Y") 
+			if (tmp == "y" || tmp == "Y")
 			{
-				//iter++;
+				iter++;
+
 				continue;
 			}
 			else if (tmp == "n" || tmp == "N")
@@ -93,23 +104,19 @@ void ConfigReader::checkData()
 				config[left] = trim(input);
 				std::cout << std::endl;
 				std::cout << "aftr corection:" << "config[" << left << "]:" << config[left] << std::endl;
-				//iter++;
+				iter++;
 			}
 			else
 			{
-				std::cout << "nope" << std::endl;	
-				iter--;
+				std::cout << "nope" << std::endl;
 			}
 		}
-
 		hash = config["hash"];
 		hashType = config["hashType"];
 		salt = config["salt"];
 		dictionaryPath = config["dictionaryPath"];
 		numberOfThreads = std::stoi(config["numberOfThreads"]);
-
 		std::cout << "Corection end" << std::endl;
 	}
-
 }
 
