@@ -1,8 +1,12 @@
 #include<iostream>
-
+#include"ConfigReader.h"
 using namespace std;
 int main()
 {
-	cout << "Eheloow";
+	int i;
+	
+	ConfigReader a("ConfigData.txt");
+	a.checkData();
+	cin >>  i;
 	return 0;
 }
