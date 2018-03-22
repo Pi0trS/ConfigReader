@@ -19,6 +19,12 @@ ConfigReader::ConfigReader()
 }
 ConfigReader::ConfigReader(std::string path)
 {
+	config["hash"] = "";
+	config["hashType"] = "";
+	config["salt"] = "";
+	config["dictionaryPath"] = "";
+	config["numberOfThreads"] = "";
+
 	std::ifstream file(path);
 	std::string line, left, right;
 	if (!file.good()) throw std::exception("file is not good");
@@ -27,17 +33,17 @@ ConfigReader::ConfigReader(std::string path)
 		size_t separatorIndex = line.find(separator);
 		if (separatorIndex == std::string::npos) 
 			continue;
-		left = line.substr(0, separatorIndex);
-		right = line.substr(separatorIndex + 1);
-		if (left.length() > 0 && right.length() > 0)
+		left = trim(line.substr(0, separatorIndex));
+		right = trim(line.substr(separatorIndex + 1));
+		if (left.length() > 0 && right.length() > 0 && config.find(left) != config.end() )
 			config[left] = right;
 		left = right = "";
 	}
 	
-	hash = trim(config["hash"]);
-	hashType = trim(config["hashType"]);
-	salt = trim(config["salt"]);
-	dictionaryPath = trim(config["dictionaryPath"]);
+	hash =config["hash"];
+	hashType = config["hashType"];
+	salt =config["salt"];
+	dictionaryPath =config["dictionaryPath"];
 	numberOfThreads = std::stoi(config["numberOfThreads"]);
 
 }
@@ -75,21 +81,31 @@ void ConfigReader::checkData()
 			right = iter->second;
 			std::cout << left << ": " << right << "correctly loaded type y/n "<< std::endl;
 			std::cin >> tmp;
-			if (tmp == "y" || tmp == "Y")continue;
-			if (tmp == "n" || tmp == "N")
+			if (tmp == "y" || tmp == "Y") 
+			{
+				//iter++;
+				continue;
+			}
+			else if (tmp == "n" || tmp == "N")
 			{
 				std::cout << "Corect:" << left << ": ";
 				std::cin >> input;
-				config[left] = input;
+				config[left] = trim(input);
 				std::cout << std::endl;
 				std::cout << "aftr corection:" << "config[" << left << "]:" << config[left] << std::endl;
+				//iter++;
+			}
+			else
+			{
+				std::cout << "nope" << std::endl;	
+				iter--;
 			}
 		}
 
-		hash = trim(config["hash"]);
-		hashType = trim(config["hashType"]);
-		salt = trim(config["salt"]);
-		dictionaryPath = trim(config["dictionaryPath"]);
+		hash = config["hash"];
+		hashType = config["hashType"];
+		salt = config["salt"];
+		dictionaryPath = config["dictionaryPath"];
 		numberOfThreads = std::stoi(config["numberOfThreads"]);
 
 		std::cout << "Corection end" << std::endl;
