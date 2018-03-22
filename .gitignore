@@ -1,1 +1,6 @@
-
+/ConfigReader/.vs
+/ConfigReader/Debug/
+/ConfigReader/Release/
+/ConfigReader/x64/
+*.db
+*.opendb
