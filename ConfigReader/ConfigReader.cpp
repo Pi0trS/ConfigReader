@@ -45,6 +45,28 @@ ConfigReader::ConfigReader(std::string path)
 	dictionaryPath =config["dictionaryPath"];
 	numberOfThreads = std::stoi(config["numberOfThreads"]);
 }
+ConfigReader::ConfigReader(std::istream &stream)
+{
+	config["hash"] = "";
+	config["hashType"] = "";
+	config["salt"] = "";
+	config["dictionaryPath"] = "";
+	config["numberOfThreads"] = "";
+
+	
+	std::string s, left, right;
+	while (stream >> s && s != "koniec")
+	{
+		size_t separatorIndex = s.find(separator);
+		if (separatorIndex == std::string::npos)
+			continue;
+		left = trim(s.substr(0, separatorIndex));
+		right = trim(s.substr(separatorIndex + 1));
+		if (left.length() > 0 && right.length() > 0 && config.find(left) != config.end())
+			config[left] = right;
+		left = right = "";
+	}
+}
 
 void ConfigReader::setHash(std::string hash_) { hash = hash_; }
 std::string ConfigReader::getHash() { return hash; }

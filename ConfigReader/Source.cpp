@@ -5,7 +5,10 @@ int main()
 {
 	int i;
 	
-	ConfigReader a("ConfigData.txt");
+	//ConfigReader a("ConfigData.txt");
+
+
+	ConfigReader a(std::cin );
 	a.checkData();
 	cin >>  i;
 	return 0;

@@ -5,7 +5,8 @@ class ConfigReader
 {
 public:
 	ConfigReader(); 
-	ConfigReader::ConfigReader(std::string);
+	ConfigReader(std::string path);
+	ConfigReader(std::istream &stream);
 	void checkData();
 
 	std::string getHash();
